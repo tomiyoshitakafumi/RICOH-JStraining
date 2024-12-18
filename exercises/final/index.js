@@ -76,7 +76,7 @@ document.getElementById('screenshot').addEventListener('click', () => {
         // Twitterウィジェットを再初期化しないとうまく表示されない
         document.getElementById('twttr').setAttribute('class', 'twitter-share-button');
         let text = `あなたは動く時計を${nowhours}時間${nowminutes}分${nowseconds}秒見ていました！`;
-        const tweetUrl = `https://twitter.com/share?url=https://aa&text=${text}`;
+        const tweetUrl = `https://twitter.com/share?url=https://tomiyoshitakafumi.github.io/moving-clock/%0A&text=${text}&hashtags=動く時計`;
         document.getElementById('twttr').setAttribute('href', tweetUrl);
         twttr.widgets.load();
     });
