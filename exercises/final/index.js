@@ -61,14 +61,14 @@ document.getElementById('screenshot').addEventListener('click', () => {
         dataUrl = canvas.toDataURL('image/png');
         const img = document.getElementById('screenshot-image');
         img.src = dataUrl;
-       
+
         img.style.top = '30px';
         img.style.right = '50%';
         img.style.border = '2px solid white';
         img.style.zIndex = '1000';
         img.style.width = '400px';
         img.style.height = 'auto'; // アスペクト比を維持
-        img.style.boxShadow= '0 0 10px rgba(0, 0, 0, 0.2)';
+        img.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
         document.getElementById('settings').style.display = 'block';
         document.getElementById('screenshot-wiew').style.display = 'block';
         document.getElementById('settings-header').style.display = 'none';
@@ -116,7 +116,7 @@ function updateTime() {
 }
 
 function animate() {
-    if (!isAnimating) return; 
+    if (!isAnimating) return;
 
     const rect = textElement.getBoundingClientRect();
     const parentRect = document.body.getBoundingClientRect();
@@ -134,8 +134,8 @@ function animate() {
     }
     // 画面外に出たときに初期位置に戻す(ex:サイズを大きくした時)
     if (parentRect.right - rect.right < -speed || rect.left < -speed || rect.top < -speed || parentRect.bottom - rect.bottom < -speed) {
-        posX=0;
-        posY=0;
+        posX = 0;
+        posY = 0;
     }
 
     posX += velocityX;
@@ -147,13 +147,13 @@ function animate() {
         clone.style.position = 'absolute';
         const computedStyle = getComputedStyle(textElement);
         const fontSize = parseInt(computedStyle.fontSize);
-        clone.style.transform = `translate(${posX}px, ${posY - fontSize/2}px)`;
+        clone.style.transform = `translate(${posX}px, ${posY - fontSize / 2}px)`;
         clone.style.opacity = '0.2'; // 残像の透明度を設定
         document.body.appendChild(clone);
         // 一定時間後に残像を削除
         setTimeout(() => {
             clone.remove();
-        }, 150); 
+        }, 150);
     }
     textElement.style.transform = `translate(${posX}px, ${posY}px)`;
     requestAnimationFrame(animate);
