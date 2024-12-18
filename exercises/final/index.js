@@ -68,7 +68,7 @@ document.getElementById('screenshot').addEventListener('click', () => {
         img.style.zIndex = '1000';
         img.style.width = '400px';
         img.style.height = 'auto'; // アスペクト比を維持
-        img.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+        img.style.boxShadow= '0 0 10px rgba(0, 0, 0, 0.5)';
         document.getElementById('settings').style.display = 'block';
         document.getElementById('screenshot-wiew').style.display = 'block';
         document.getElementById('settings-header').style.display = 'none';
@@ -166,7 +166,7 @@ function updateElapsedTime() {
     nowhours = Math.floor(elapsedTime / 3600);
     nowminutes = Math.floor((elapsedTime % 3600) / 60);
     nowseconds = elapsedTime % 60;
-    document.getElementById('elapsed-time').innerText = `あなたは${nowhours}時間${nowminutes}分${nowseconds}秒この画面を見ていました！`;
+    document.getElementById('elapsed-time').innerText = `あなたは動く時計を${nowhours}時間${nowminutes}分${nowseconds}秒見ていました！`;
 }
 
 function toggleSettings() {
