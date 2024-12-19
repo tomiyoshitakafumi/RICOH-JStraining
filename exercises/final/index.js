@@ -6,7 +6,6 @@ const startTime = new Date();
 // 1秒ごとに経過時間を更新
 let elapsedTimeInterval = setInterval(updateElapsedTime, 1000);
 
-
 const textElement = document.getElementById('current-time');
 let posX = 0;
 let posY = 0;
@@ -19,6 +18,7 @@ let speed = 2;
 let nowhours = 0;
 let nowminutes = 0;
 let nowseconds = 0;
+let totalElapsedTime = 0;
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -28,6 +28,11 @@ function getRandomColor() {
     return color;
 }
 
+// ローカルストレージから以前の経過時間を取得して合算する
+const storedElapsedTime = localStorage.getItem('elapsedTime');
+if (storedElapsedTime) {
+    totalElapsedTime = parseInt(storedElapsedTime, 10);
+}
 animate();
 // Escキーが押されたときに設定画面を表示・非表示にする
 // 設定画面中はアニメーションを停止する
@@ -45,6 +50,7 @@ document.getElementById('close-settings').addEventListener('click', () => {
     document.getElementById('settings').style.display = 'none';
     document.getElementById('screenshot-wiew').style.display = 'none';
     document.getElementById('settings-header').style.display = 'none';
+    elapsedTimeInterval = setInterval(updateElapsedTime, 1000); // 経過時間の更新を再開
     isAnimating = true;
     animate();
 });
@@ -102,6 +108,7 @@ document.getElementById('size-slider-speed').addEventListener('input', (event) =
     velocityY = speed;
     velocityY = speed;
 });
+//秒だけ別で表示
 function updateTime() {
     const now = new Date();
     const options = { hour: '2-digit', minute: '2-digit' };
@@ -163,10 +170,13 @@ function animate() {
 function updateElapsedTime() {
     const now = new Date();
     const elapsedTime = Math.floor((now - startTime) / 1000); // 経過時間を秒で計算
-    nowhours = Math.floor(elapsedTime / 3600);
-    nowminutes = Math.floor((elapsedTime % 3600) / 60);
-    nowseconds = elapsedTime % 60;
+    const combinedElapsedTime = totalElapsedTime + elapsedTime; // 合算した経過時間
+    nowhours = Math.floor(combinedElapsedTime / 3600);
+    nowminutes = Math.floor((combinedElapsedTime % 3600) / 60);
+    nowseconds = combinedElapsedTime % 60;
     document.getElementById('elapsed-time').innerText = `あなたは動く時計を${nowhours}時間${nowminutes}分${nowseconds}秒見ていました！`;
+    // ローカルストレージに合算した経過時間を保存
+    localStorage.setItem('elapsedTime', combinedElapsedTime);
 }
 
 function toggleSettings() {
